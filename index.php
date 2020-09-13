@@ -28,6 +28,10 @@
             $this->predkosc = 0;
         }
 
+        function przemaluj($_nowyKolor) {
+            $this->kolor = $_nowyKolor;
+        }
+
         function zapal() {
             $this->wlaczony = true;
         }
@@ -37,11 +41,17 @@
         }
 
         function przyspiesz() {
-            $this->predkosc++;
+            global $limitPredkosci;
+            if( isset($limitPredkosci) )
+               if($this->predkosc < $limitPredkosci)
+               $this->predkosc++;
+            else  $this->predkosc++;  
         }
 
         function hamuj() {
-            $this->predkosc--;
+            if($this->predkosc >= 1)
+                $this->predkosc--;
+            else $this->predkosc = 0;
         }
 
         function stoj() {
@@ -69,10 +79,15 @@
         }
     }
 
+    $limitPredkosci = 50;
+
     $s = new Samochod("Skoda", "Suberb", "srebrny", 1600);
 
     echo $s->stan();
     $s->zapal();
+    for ($i=0; $i < 100; $i++) { 
+        $s->przyspiesz();
+    }
     $s->przyspiesz();
     $s->przyspiesz();
     $s->przyspiesz();
