@@ -43,6 +43,10 @@
             $ceny['vat'] = number_format($this->wartoscVAT() * (1 - $rabat),2);
             return $ceny; 
         }
+
+        function __destruct() {
+            
+        }
     }
     $rabat = 0.2;
     $p = new Produkt("Słuchawki", 99);
